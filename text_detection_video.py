@@ -54,7 +54,6 @@ def decode_predictions(scores, geometry):
 			cos = np.cos(angle)
 			sin = np.sin(angle)
 
-
                         #مختصات کادر محدوده منطقه متن استخراج مي شود
 			# براي به دست آوردن عرض و ارتفاع کادر محدود کننده متن از داده هاي هندسي به دست آمده استفاده ميکنيم
 			h = xData0[x] + xData2[x]
@@ -78,7 +77,7 @@ ap = argparse.ArgumentParser()
 # مسير فيلم ورودي. اگر اين مسير وارد شود از دوربين وب کم استفاده نمي شود
 ap.add_argument("-v", "--video", type=str,
 	help="path to optinal input video file")
-# استانه احتما براي تشخيص متن که حداقل آن به صورت پيش فرض 0.5 در نظر ميگيريم 
+# آستانه احتمال براي تشخيص متن که حداقل آن به صورت پيش فرض 0.5 در نظر ميگيريم 
 ap.add_argument("-c", "--min-confidence", type=float, default=0.5,
 	help="minimum probability required to inspect a region")
 # تغيير سايز عرض تصوير به صورت پيش فرض 320
@@ -106,7 +105,7 @@ args1 = {"east":"frozen_east_text_detection.pb"}
 # load the pre-trained EAST text detector
 # بارگذاري مدل تشخيص دهنده متن از قبل آموزش ديده
 print("[INFO] loading EAST text detector...")
-#  و استفاده از داده هاي مدلبارگذاري شبکه عصبي در حافظه 
+#  و استفاده از داده هاي مدل بارگذاري شبکه عصبي در حافظه 
 net = cv2.dnn.readNet(args1["east"])
 
 # اگر ویدیو از قبل ضبط شده برای تشخیص متن داشتیم می توانیم ان را اجرا کنیم یا در غیر اینصورت وب کم فعال می شود.
@@ -182,8 +181,6 @@ while True:
 		##text += "\r\n"
 		# ارسال متن تشخيص داده شده به پورت سريال
 		ser.write(PlateNumber.encode())
-		
-
 
 	# با خروج از حلقه مقدار فريم بر ثانيه اپديت مي شود
 	fps.update()
@@ -196,7 +193,7 @@ while True:
 	if key == ord("q"):
 		break
 
-# توقف زمان و نشان دادن اطلاعات فريم بر ثانيه در خوجي
+# توقف زمان و نشان دادن اطلاعات فريم بر ثانيه در خروجي
 fps.stop()
 print("[INFO] elasped time: {:.2f}".format(fps.elapsed()))
 print("[INFO] approx. FPS: {:.2f}".format(fps.fps()))
